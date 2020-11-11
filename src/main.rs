@@ -5,5 +5,13 @@ fn main() {
         .version("0.1.0")
         .author("Sean Hutchings <seanhut@yandex.com>")
         .about("Setup contributing directory to use contributing-rules")
+        .arg(
+            Arg::with_name("verbose")
+                .long("verbose")
+                .short("v")
+                .multiple(false)
+                .display_order(18)
+                .help("Verbose output"),
+        )
         .get_matches();
 }
