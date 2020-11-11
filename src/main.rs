@@ -1,5 +1,7 @@
 use clap::{App, Arg, ArgGroup};
 
+use side_effects::setup_contributing;
+
 fn main() {
     let arguments = App::new("setup-contributing")
         .version("0.1.0")
@@ -14,4 +16,6 @@ fn main() {
                 .help("Verbose output"),
         )
         .get_matches();
+
+    setup_contributing(arguments);
 }
