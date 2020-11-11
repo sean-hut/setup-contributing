@@ -8,6 +8,14 @@ fn main() {
         .author("Sean Hutchings <seanhut@yandex.com>")
         .about("Setup contributing directory to use contributing-rules")
         .arg(
+            Arg::with_name("remove")
+                .long("remove")
+                .short("R")
+                .multiple(false)
+                .display_order(1)
+                .help("Remove CONTRIBUTING directory if it exists.  Then the CONTRIBUTING directory is recreated."),
+        )
+        .arg(
             Arg::with_name("verbose")
                 .long("verbose")
                 .short("v")
