@@ -1,6 +1,6 @@
 use clap::{App, Arg, ArgGroup};
 
-use side_effects::setup_contributing;
+use impure::setup_contributing;
 
 fn main() {
     let arguments = App::new("setup-contributing")
