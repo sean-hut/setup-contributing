@@ -15,6 +15,7 @@ use crate::contributing_markdown::{
 };
 use crate::directories::contributing::create_contributing_directory;
 use crate::rules::rule::Rule;
+const CONTRIBUTING: &str = "CONTRIBUTING/CONTRIBUTING.md";
 
 pub fn setup_contributing(arguments: ArgMatches) {
     check_directory(&arguments);
@@ -87,22 +88,20 @@ fn append(file: &mut File, text: &str) {
     }
 }
 
-fn append_rule(rule: Rule) {
-    let contributing: &str = "CONTRIBUTING/CONTRIBUTING.md";
 
-    let mut file: File = open(contributing);
+
+fn append_rule(rule: &Rule) {
+    let mut file: File = open(CONTRIBUTING);
 
     if rule.flag {
         append(&mut file, rule.rule);
     }
 }
 
-fn append_link(arguments: &ArgMatches, rule: Rule) {
+fn append_link(arguments: &ArgMatches, rule: &Rule) {
     let verbose: bool = arguments.occurrences_of("verbose") > 0;
 
-    let contributing: &str = "CONTRIBUTING/CONTRIBUTING.md";
-
-    let mut file: File = open(contributing);
+    let mut file: File = open(CONTRIBUTING);
 
     if rule.flag {
         append(&mut file, rule.link);
