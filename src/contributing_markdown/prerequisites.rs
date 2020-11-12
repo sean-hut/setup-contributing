@@ -5,34 +5,8 @@ use clap::ArgMatches;
 use crate::rules::contributing_prerequisites::{
     any_prerequisites, prerequisites, PREREQUISITE_HEADING,
 };
-use crate::rules::rule::Rule;
-use crate::{append, open};
 
-fn append_rule(rule: Rule) {
-    let contributing: &str = "CONTRIBUTING/CONTRIBUTING.md";
-
-    let mut file: File = open(contributing);
-
-    if rule.flag {
-        append(&mut file, rule.rule);
-    }
-}
-
-fn append_link(arguments: &ArgMatches, rule: Rule) {
-    let verbose: bool = arguments.occurrences_of("verbose") > 0;
-
-    let contributing: &str = "CONTRIBUTING/CONTRIBUTING.md";
-
-    let mut file: File = open(contributing);
-
-    if rule.flag {
-        append(&mut file, rule.link);
-
-        if verbose {
-            println!("{}", rule.verbose);
-        }
-    }
-}
+use crate::{append, append_link, append_rule, open};
 
 pub fn append_prerequisites(arguments: &ArgMatches) {
     let contributing: &str = "CONTRIBUTING/CONTRIBUTING.md";

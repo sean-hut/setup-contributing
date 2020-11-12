@@ -2,7 +2,7 @@ use clap::ArgMatches;
 
 use crate::rules::rule::Rule;
 
-pub const PREREQUISITE_HEADING: &str = "### Contributing Prerequisites\n\n";
+pub const PREREQUISITE_HEADING: &str = "## Contributing Prerequisites\n\n";
 
 pub fn prerequisites<'a>(arguments: &'a ArgMatches) -> Vec<Rule<'a>> {
     vec![
