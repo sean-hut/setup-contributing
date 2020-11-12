@@ -116,6 +116,39 @@ fn main() {
                 .help("Include run make rule"),
         )
         .arg(
+            Arg::with_name("small-commits")
+                .long("small-commits")
+                .short("s")
+                .multiple(false)
+                .display_order(14)
+                .help("Include small commits rule"),
+        )
+        .arg(
+            Arg::with_name("sign-commit")
+                .long("sign-commit")
+                .short("S")
+                .multiple(false)
+                .display_order(15)
+                .help("Include sign commits rule"),
+        )
+        .arg(
+            Arg::with_name("amaranth")
+                .long("amaranth")
+                .short("A")
+                .multiple(false)
+                .display_order(16)
+                .help("Include Amaranth commit message format rule"),
+        )
+        .arg(
+            Arg::with_name("tpope")
+                .long("tpope")
+                .short("t")
+                .multiple(false)
+                .display_order(17)
+                .help("Include tpope commit message format rule"),
+        )
+        .group(ArgGroup::with_name("commit-message-format").args(&["amaranth", "tpope"]))
+        .arg(
             Arg::with_name("verbose")
                 .long("verbose")
                 .short("v")
