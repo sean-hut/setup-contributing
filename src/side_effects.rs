@@ -11,7 +11,7 @@ use std::process::exit;
 use clap::ArgMatches;
 
 use crate::contributing_markdown::{
-    preamble::append_preamble, prerequisites::append_prerequisites,
+    preamble::append_preamble, preparation::append_prepartion, prerequisites::append_prerequisites,
 };
 use crate::directories::contributing::create_contributing_directory;
 use crate::rules::rule::Rule;
@@ -24,6 +24,8 @@ pub fn setup_contributing(arguments: ArgMatches) {
     append_preamble();
 
     append_prerequisites(&arguments);
+
+    append_prepartion(&arguments);
 }
 
 fn check_directory(arguments: &ArgMatches) {
