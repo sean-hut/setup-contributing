@@ -1,6 +1,7 @@
 mod directories;
 
 use std::fs::remove_dir_all;
+use std::fs::{File, OpenOptions};
 use std::path::Path;
 use std::process::exit;
 
@@ -52,3 +53,14 @@ fn check_directory(arguments: &ArgMatches) {
         }
     }
 }
+
+fn open(file_path: &str) -> File {
+    match OpenOptions::new().append(true).create(true).open(file_path) {
+        Ok(file) => file,
+        Err(e) => {
+            eprintln!("[Error] Can not open {}: {}", file_path, e);
+            exit(1);
+        }
+    }
+}
+
