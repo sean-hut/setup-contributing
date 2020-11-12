@@ -27,9 +27,11 @@ fn main() {
             Arg::with_name("public-key")
                 .long("public-key")
                 .short("P")
+                .value_name("PATH")
+                .takes_value(true)
                 .multiple(false)
-                .display_order(3)
-                .help("Include provide public key rule"),
+                .display_order(1)
+                .help("Include provide public key rule.  Also copy the public key and fingerprint in <PATH> into the contributing directory structure.  <PATH> should end with a /"),
         )
         .arg(
             Arg::with_name("contributor-agreement")

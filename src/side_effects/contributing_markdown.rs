@@ -34,7 +34,7 @@ fn append(file: &mut File, text: &str) {
 pub fn append_preamble(arguments: &ArgMatches) {
     let mut file: File = open(CONTRIBUTING);
 
-    let verbose: bool = arguments.occurrences_of("verbose") > 0;
+    let verbose: bool = arguments.is_present("verbose");
 
     let preamble: &str = "# Contributing Rules
 
@@ -56,7 +56,7 @@ fn append_rule(rule: &Rule) {
 }
 
 fn append_link(arguments: &ArgMatches, rule: &Rule) {
-    let verbose: bool = arguments.occurrences_of("verbose") > 0;
+    let verbose: bool = arguments.is_present("verbose");
 
     let mut file: File = open(CONTRIBUTING);
 

@@ -9,19 +9,22 @@ use crate::rules::{
     contributing_prerequisites::{any_prerequisites, prerequisites, PREREQUISITE_HEADING},
 };
 use crate::side_effects::{
-    checks::{check_directory, require_flag},
+    checks::{check_directory, gpg_related_flag_checks, require_flag},
     contributing_markdown::{
         append_preamble, append_section, space_after_preparation, space_after_prerequisites,
     },
-    directories::create_contributing_directory,
+    directories::create_contributing_directory_structure,
+    gpg::copy_gpg_files,
 };
 
 pub fn setup_contributing(arguments: ArgMatches) {
     require_flag(&arguments);
 
+    gpg_related_flag_checks(&arguments);
+
     check_directory(&arguments);
 
-    create_contributing_directory(&arguments);
+    create_contributing_directory_structure(&arguments);
 
     append_preamble(&arguments);
 
@@ -49,4 +52,6 @@ pub fn setup_contributing(arguments: ArgMatches) {
         committing(&arguments),
         COMMITTING_HEADING,
     );
+
+    copy_gpg_files(&arguments);
 }
