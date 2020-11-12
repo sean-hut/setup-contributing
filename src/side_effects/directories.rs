@@ -48,7 +48,6 @@ pub fn create_contributing_directory_structure(arguments: &ArgMatches) {
         "CONTRIBUTING/contributors/".to_string()
     };
 
-    //    match create_dir_all("CONTRIBUTING/contributors/") {
     match create_dir_all(directory_structure) {
         Ok(_) => {
             if verbose {
