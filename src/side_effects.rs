@@ -20,6 +20,8 @@ use crate::rules::{
 const CONTRIBUTING: &str = "CONTRIBUTING/CONTRIBUTING.md";
 
 pub fn setup_contributing(arguments: ArgMatches) {
+    require_flag(&arguments);
+
     check_directory(&arguments);
 
     create_contributing_directory(&arguments);
@@ -46,6 +48,13 @@ pub fn setup_contributing(arguments: ArgMatches) {
         committing(&arguments),
         COMMITTING_HEADING,
     );
+}
+
+fn require_flag(arguments: &ArgMatches) {
+    if !any_prerequisites(arguments) && !any_preparation(arguments) && !any_committing(arguments) {
+        eprintln!("[Error] Use at least one include rule flag");
+        exit(1);
+    }
 }
 
 fn check_directory(arguments: &ArgMatches) {
