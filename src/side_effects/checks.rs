@@ -16,6 +16,36 @@ pub fn require_flag(arguments: &ArgMatches) {
     }
 }
 
+pub fn gpg_related_flag_checks(arguments: &ArgMatches) {
+    let public_key: bool = arguments.occurrences_of("public-key") > 0;
+    let sign_commit: bool = arguments.occurrences_of("sign-commit") > 0;
+    let contributor_agreement: bool = arguments.occurrences_of("contributor-agreement") > 0;
+
+    if sign_commit && !public_key {
+        eprintln!(
+            "[Error] Use of the --sign-commit flag requires \
+             the use of the --public-key flag"
+        );
+        exit(1);
+    }
+
+    if contributor_agreement && !public_key {
+        eprintln!(
+            "[Error] Use of the --contributor-agreement flag requires \
+             the use of the --public-key flag"
+        );
+        exit(1);
+    }
+
+    if public_key && !sign_commit && !contributor_agreement {
+        eprintln!(
+            "[Error] Use of the --public-key flag requires the use of \
+             at least one of the --sign-commit flag or the --contributor-agreement flag"
+        );
+        exit(1);
+    }
+}
+
 pub fn check_directory(arguments: &ArgMatches) {
     let contributing_directory: &str = "CONTRIBUTING/";
 
