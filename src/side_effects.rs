@@ -88,7 +88,15 @@ fn append(file: &mut File, text: &str) {
     }
 }
 
+pub fn append_preamble() {
+    let mut file: File = open(CONTRIBUTING);
 
+    let preamble: &str = "# Contributing Rules
+
+These are the contributing rules.\n\n";
+
+    append(&mut file, preamble);
+}
 
 fn append_rule(rule: &Rule) {
     let mut file: File = open(CONTRIBUTING);
