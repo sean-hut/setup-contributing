@@ -14,6 +14,7 @@ use crate::side_effects::{
         append_preamble, append_section, space_after_preparation, space_after_prerequisites,
     },
     directories::create_contributing_directory_structure,
+    gpg::copy_gpg_files,
 };
 
 pub fn setup_contributing(arguments: ArgMatches) {
@@ -51,4 +52,6 @@ pub fn setup_contributing(arguments: ArgMatches) {
         committing(&arguments),
         COMMITTING_HEADING,
     );
+
+    copy_gpg_files(&arguments);
 }

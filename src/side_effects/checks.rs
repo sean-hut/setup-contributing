@@ -24,7 +24,7 @@ pub fn gpg_related_flag_checks(arguments: &ArgMatches) {
     if sign_commit && !public_key {
         eprintln!(
             "[Error] Use of the --sign-commit flag requires \
-             the use of the --public-key flag"
+             the use of the --public-key option"
         );
         exit(1);
     }
@@ -32,14 +32,14 @@ pub fn gpg_related_flag_checks(arguments: &ArgMatches) {
     if contributor_agreement && !public_key {
         eprintln!(
             "[Error] Use of the --contributor-agreement flag requires \
-             the use of the --public-key flag"
+             the use of the --public-key option"
         );
         exit(1);
     }
 
     if public_key && !sign_commit && !contributor_agreement {
         eprintln!(
-            "[Error] Use of the --public-key flag requires the use of \
+            "[Error] Use of the --public-key option requires the use of \
              at least one of the --sign-commit flag or the --contributor-agreement flag"
         );
         exit(1);

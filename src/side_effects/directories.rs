@@ -7,6 +7,23 @@ use clap::ArgMatches;
 pub fn create_contributing_directory_structure(arguments: &ArgMatches) {
     let verbose: bool = arguments.is_present("verbose");
 
+    match create_dir_all(directory_structure(&arguments)) {
+        Ok(_) => {
+            if verbose {
+                println!("[Info] Created contributing directory structure")
+            }
+        }
+        Err(e) => {
+            eprintln!(
+                "[Error] Could not create contributing directory structure. {}",
+                e
+            );
+            exit(1);
+        }
+    }
+}
+
+pub fn directory_structure(arguments: &ArgMatches) -> String {
     let public_key: bool = arguments.is_present("public-key");
 
     let output: Output = match Command::new("git").arg("config").arg("user.name").output() {
@@ -39,27 +56,12 @@ pub fn create_contributing_directory_structure(arguments: &ArgMatches) {
         .trim_end()
         .to_string();
 
-    let directory_structure: String = if public_key {
+    if public_key {
         format!(
             "CONTRIBUTING/contributors/{}/public-key/current/",
             name_directory
         )
     } else {
         "CONTRIBUTING/contributors/".to_string()
-    };
-
-    match create_dir_all(directory_structure) {
-        Ok(_) => {
-            if verbose {
-                println!("[Info] Created contributing directory structure")
-            }
-        }
-        Err(e) => {
-            eprintln!(
-                "[Error] Could not create contributing directory structure. {}",
-                e
-            );
-            exit(1);
-        }
     }
 }
