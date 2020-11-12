@@ -31,14 +31,20 @@ fn append(file: &mut File, text: &str) {
     }
 }
 
-pub fn append_preamble() {
+pub fn append_preamble(arguments: &ArgMatches) {
     let mut file: File = open(CONTRIBUTING);
+
+    let verbose: bool = arguments.occurrences_of("verbose") > 0;
 
     let preamble: &str = "# Contributing Rules
 
 These are the contributing rules.\n\n";
 
     append(&mut file, preamble);
+
+    if verbose {
+        println!("[Info] Created CONTRIBUTING.md");
+    }
 }
 
 fn append_rule(rule: &Rule) {

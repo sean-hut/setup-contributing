@@ -23,7 +23,7 @@ pub fn setup_contributing(arguments: ArgMatches) {
 
     create_contributing_directory(&arguments);
 
-    append_preamble();
+    append_preamble(&arguments);
 
     append_section(
         &arguments,
