@@ -14,6 +14,7 @@ use crate::contributing_markdown::{
     preamble::append_preamble, prerequisites::append_prerequisites,
 };
 use crate::directories::contributing::create_contributing_directory;
+use crate::rules::rule::Rule;
 
 pub fn setup_contributing(arguments: ArgMatches) {
     check_directory(&arguments);
@@ -80,6 +81,32 @@ fn append(file: &mut File, text: &str) {
         Err(_) => {
             eprintln!("[Error] Can not write to file");
             exit(1);
+        }
+    }
+}
+
+fn append_rule(rule: Rule) {
+    let contributing: &str = "CONTRIBUTING/CONTRIBUTING.md";
+
+    let mut file: File = open(contributing);
+
+    if rule.flag {
+        append(&mut file, rule.rule);
+    }
+}
+
+fn append_link(arguments: &ArgMatches, rule: Rule) {
+    let verbose: bool = arguments.occurrences_of("verbose") > 0;
+
+    let contributing: &str = "CONTRIBUTING/CONTRIBUTING.md";
+
+    let mut file: File = open(contributing);
+
+    if rule.flag {
+        append(&mut file, rule.link);
+
+        if verbose {
+            println!("{}", rule.verbose);
         }
     }
 }
