@@ -1,4 +1,3 @@
-mod contributing_markdown;
 mod directories;
 mod rules;
 
@@ -10,11 +9,14 @@ use std::process::exit;
 
 use clap::ArgMatches;
 
-use crate::contributing_markdown::{
-    preamble::append_preamble, preparation::append_prepartion, prerequisites::append_prerequisites,
-};
 use crate::directories::contributing::create_contributing_directory;
-use crate::rules::rule::Rule;
+use crate::rules::{
+    commit_preparation::{any_preparation, preparation, PREPARATION_HEADING},
+    committing::{any_committing, committing, COMMITTING_HEADING},
+    contributing_prerequisites::{any_prerequisites, prerequisites, PREREQUISITE_HEADING},
+    rule::Rule,
+};
+
 const CONTRIBUTING: &str = "CONTRIBUTING/CONTRIBUTING.md";
 
 pub fn setup_contributing(arguments: ArgMatches) {
@@ -24,9 +26,26 @@ pub fn setup_contributing(arguments: ArgMatches) {
 
     append_preamble();
 
-    append_prerequisites(&arguments);
+    append_section(
+        &arguments,
+        any_prerequisites(&arguments),
+        prerequisites(&arguments),
+        PREREQUISITE_HEADING,
+    );
 
-    append_prepartion(&arguments);
+    append_section(
+        &arguments,
+        any_preparation(&arguments),
+        preparation(&arguments),
+        PREPARATION_HEADING,
+    );
+
+    append_section(
+        &arguments,
+        any_committing(&arguments),
+        committing(&arguments),
+        COMMITTING_HEADING,
+    );
 }
 
 fn check_directory(arguments: &ArgMatches) {
@@ -116,6 +135,24 @@ fn append_link(arguments: &ArgMatches, rule: &Rule) {
 
         if verbose {
             println!("{}", rule.verbose);
+        }
+    }
+}
+
+fn append_section(arguments: &ArgMatches, any_rules: bool, rules: Vec<Rule>, heading: &str) {
+    let mut file: File = open(CONTRIBUTING);
+
+    if any_rules {
+        append(&mut file, heading);
+
+        for r in &rules {
+            append_rule(r);
+        }
+
+        append(&mut file, "\n");
+
+        for r in &rules {
+            append_link(&arguments, r);
         }
     }
 }
