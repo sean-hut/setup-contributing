@@ -1,4 +1,6 @@
+mod contributing_markdown;
 mod directories;
+mod rules;
 
 use std::fs::remove_dir_all;
 use std::fs::{File, OpenOptions};
@@ -8,12 +10,19 @@ use std::process::exit;
 
 use clap::ArgMatches;
 
+use crate::contributing_markdown::{
+    preamble::append_preamble, prerequisites::append_prerequisites,
+};
 use crate::directories::contributing::create_contributing_directory;
 
 pub fn setup_contributing(arguments: ArgMatches) {
     check_directory(&arguments);
 
     create_contributing_directory(&arguments);
+
+    append_preamble();
+
+    append_prerequisites(&arguments);
 }
 
 fn check_directory(arguments: &ArgMatches) {
