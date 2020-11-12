@@ -2,6 +2,7 @@ mod directories;
 
 use std::fs::remove_dir_all;
 use std::fs::{File, OpenOptions};
+use std::io::Write;
 use std::path::Path;
 use std::process::exit;
 
@@ -64,3 +65,12 @@ fn open(file_path: &str) -> File {
     }
 }
 
+fn append(file: &mut File, text: &str) {
+    match write!(file, "{}", text) {
+        Ok(_) => (),
+        Err(_) => {
+            eprintln!("[Error] Can not write to file");
+            exit(1);
+        }
+    }
+}
