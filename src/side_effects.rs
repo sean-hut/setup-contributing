@@ -44,6 +44,8 @@ pub fn setup_contributing(arguments: ArgMatches) {
         PREPARATION_HEADING,
     );
 
+    space_after_preparation(&arguments);
+
     append_section(
         &arguments,
         any_committing(&arguments),
@@ -173,6 +175,14 @@ fn space_after_prerequisites(arguments: &ArgMatches) {
 
     if any_prerequisites(&arguments) && (any_preparation(&arguments) || any_committing(&arguments))
     {
+        append(&mut file, "\n");
+    }
+}
+
+fn space_after_preparation(arguments: &ArgMatches) {
+    let mut file: File = open(CONTRIBUTING);
+
+    if any_preparation(&arguments) && any_committing(&arguments) {
         append(&mut file, "\n");
     }
 }
