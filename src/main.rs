@@ -76,6 +76,46 @@ fn main() {
                 .help("Include git commit msg hook rule"),
         )
         .arg(
+            Arg::with_name("git-flow")
+                .long("git-flow")
+                .short("F")
+                .multiple(false)
+                .display_order(9)
+                .help("Include git-flow rule"),
+        )
+        .arg(
+            Arg::with_name("fetch-merge")
+                .long("fetch-merge")
+                .short("f")
+                .multiple(false)
+                .display_order(10)
+                .help("Include fetch and merge rule"),
+        )
+        .arg(
+            Arg::with_name("documentation")
+                .long("documentation")
+                .short("d")
+                .multiple(false)
+                .display_order(11)
+                .help("Include update documentation rule"),
+        )
+        .arg(
+            Arg::with_name("test")
+                .long("test")
+                .short("T")
+                .multiple(false)
+                .display_order(12)
+                .help("Include update tests rule"),
+        )
+        .arg(
+            Arg::with_name("make")
+                .long("make")
+                .short("m")
+                .multiple(false)
+                .display_order(13)
+                .help("Include run make rule"),
+        )
+        .arg(
             Arg::with_name("verbose")
                 .long("verbose")
                 .short("v")
