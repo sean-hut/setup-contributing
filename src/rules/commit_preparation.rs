@@ -10,31 +10,31 @@ pub fn preparation<'a>(arguments: &'a ArgMatches) -> Vec<Rule<'a>> {
             flag: arguments.occurrences_of("git-flow") > 0,
             rule: "- [git-flow Branching][git-flow]\n",
             link: "[git-flow]: <https://github.com/sean-hut/contributing-rules/blob/develop/rules/preparation-for-commits/git-flow-branching.md>\n",
-        verbose: "Included git-flow rule",
+        verbose: "[Info] Included git-flow rule",
         },
         Rule {
             flag: arguments.occurrences_of("fetch-merge") > 0,
             rule: "- [Fetch and Merge Before Committing][fetch-merge]\n",
             link: "[fetch-merge]: <https://github.com/sean-hut/contributing-rules/blob/develop/rules/preparation-for-commits/fetch-and-merge-before-committing.md>\n",
-            verbose: "Included fetch and merge rule",
+            verbose: "[Info] Included fetch and merge rule",
         },
         Rule {
             flag: arguments.occurrences_of("documentation") > 0,
             rule: "- [Update Documentation][docs]\n",
             link: "[docs]: <https://github.com/sean-hut/contributing-rules/blob/develop/rules/preparation-for-commits/update-documentation.md>\n",
-            verbose: "Included documentation rule",
+            verbose: "[Info] Included documentation rule",
         },
         Rule {
             flag: arguments.occurrences_of("test") > 0,
             rule: "- [Update Tests][tests]\n",
             link: "[tests]: <https://github.com/sean-hut/contributing-rules/blob/develop/rules/preparation-for-commits/update-tests.md>\n",
-            verbose: "Included test rule",
+            verbose: "[Info] Included test rule",
         },
         Rule {
             flag: arguments.occurrences_of("make") > 0,
             rule: "- [Run Make][run-make]\n",
             link: "[run-make]: <https://github.com/sean-hut/contributing-rules/blob/develop/rules/preparation-for-commits/run-make.md>\n",
-            verbose: "Included make rule",
+            verbose: "[Info] Included make rule",
         },
     ]
 }
