@@ -5,9 +5,9 @@ use std::string::String;
 use clap::ArgMatches;
 
 pub fn create_contributing_directory_structure(arguments: &ArgMatches) {
-    let verbose: bool = arguments.occurrences_of("verbose") > 0;
+    let verbose: bool = arguments.is_present("verbose");
 
-    let public_key: bool = arguments.occurrences_of("public-key") > 0;
+    let public_key: bool = arguments.is_present("public-key");
 
     let output: Output = match Command::new("git").arg("config").arg("user.name").output() {
         Ok(output) => output,

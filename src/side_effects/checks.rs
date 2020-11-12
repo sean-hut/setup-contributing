@@ -17,9 +17,9 @@ pub fn require_flag(arguments: &ArgMatches) {
 }
 
 pub fn gpg_related_flag_checks(arguments: &ArgMatches) {
-    let public_key: bool = arguments.occurrences_of("public-key") > 0;
-    let sign_commit: bool = arguments.occurrences_of("sign-commit") > 0;
-    let contributor_agreement: bool = arguments.occurrences_of("contributor-agreement") > 0;
+    let public_key: bool = arguments.is_present("public-key");
+    let sign_commit: bool = arguments.is_present("sign-commit");
+    let contributor_agreement: bool = arguments.is_present("contributor-agreement");
 
     if sign_commit && !public_key {
         eprintln!(
@@ -49,11 +49,11 @@ pub fn gpg_related_flag_checks(arguments: &ArgMatches) {
 pub fn check_directory(arguments: &ArgMatches) {
     let contributing_directory: &str = "CONTRIBUTING/";
 
-    let remove: bool = arguments.occurrences_of("remove") > 0;
+    let remove: bool = arguments.is_present("remove");
 
     let contributing_exists: bool = Path::new(contributing_directory).exists();
 
-    let verbose: bool = arguments.occurrences_of("verbose") > 0;
+    let verbose: bool = arguments.is_present("verbose");
 
     if contributing_exists && !remove {
         eprintln!(
