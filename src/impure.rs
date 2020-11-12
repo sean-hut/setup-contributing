@@ -1,10 +1,9 @@
 mod directories;
 mod rules;
+mod side_effects;
 
-use std::fs::remove_dir_all;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
-use std::path::Path;
 use std::process::exit;
 
 use clap::ArgMatches;
@@ -16,6 +15,7 @@ use crate::rules::{
     contributing_prerequisites::{any_prerequisites, prerequisites, PREREQUISITE_HEADING},
     rule::Rule,
 };
+use crate::side_effects::checks::{check_directory, require_flag};
 
 const CONTRIBUTING: &str = "CONTRIBUTING/CONTRIBUTING.md";
 
@@ -52,52 +52,6 @@ pub fn setup_contributing(arguments: ArgMatches) {
         committing(&arguments),
         COMMITTING_HEADING,
     );
-}
-
-fn require_flag(arguments: &ArgMatches) {
-    if !any_prerequisites(arguments) && !any_preparation(arguments) && !any_committing(arguments) {
-        eprintln!("[Error] Use at least one include rule flag");
-        exit(1);
-    }
-}
-
-fn check_directory(arguments: &ArgMatches) {
-    let contributing_directory: &str = "CONTRIBUTING/";
-
-    let remove: bool = arguments.occurrences_of("remove") > 0;
-
-    let contributing_exists: bool = Path::new(contributing_directory).exists();
-
-    let verbose: bool = arguments.occurrences_of("verbose") > 0;
-
-    if contributing_exists && !remove {
-        eprintln!(
-            "[Error] CONTRIBUTING directory already exists. \
-             Use the --remove flag to remove the directory and it's contents and recreate it."
-        );
-        exit(1);
-    }
-
-    if !contributing_exists && remove && verbose {
-        println!("No directory {} to remove", contributing_directory);
-    }
-
-    if contributing_exists && remove {
-        match remove_dir_all(contributing_directory) {
-            Ok(_) => {
-                if verbose {
-                    println!("Directory {} was removed", contributing_directory);
-                }
-            }
-            Err(e) => {
-                eprintln!(
-                    "[Error] {} directory could not be removed. {}.",
-                    contributing_directory, e
-                );
-                exit(1);
-            }
-        }
-    }
 }
 
 fn open(file_path: &str) -> File {
