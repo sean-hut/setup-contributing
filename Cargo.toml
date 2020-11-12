@@ -1,0 +1,12 @@
+[package]
+name = "setup-contributing"
+version = "0.1.0"
+authors = ["Sean Hutchings <seanhut@yandex.com>"]
+edition = "2018"
+
+[lib]
+name = "side_effects"
+path = "src/side_effects.rs"
+
+[dependencies]
+clap = "~2.33"
