@@ -1,4 +1,3 @@
-mod directories;
 mod rules;
 mod side_effects;
 
@@ -8,14 +7,16 @@ use std::process::exit;
 
 use clap::ArgMatches;
 
-use crate::directories::contributing::create_contributing_directory;
 use crate::rules::{
     commit_preparation::{any_preparation, preparation, PREPARATION_HEADING},
     committing::{any_committing, committing, COMMITTING_HEADING},
     contributing_prerequisites::{any_prerequisites, prerequisites, PREREQUISITE_HEADING},
     rule::Rule,
 };
-use crate::side_effects::checks::{check_directory, require_flag};
+use crate::side_effects::{
+    checks::{check_directory, require_flag},
+    directories::create_contributing_directory,
+};
 
 const CONTRIBUTING: &str = "CONTRIBUTING/CONTRIBUTING.md";
 

@@ -9,7 +9,7 @@ pub fn create_contributing_directory(arguments: &ArgMatches) {
     match create_dir("CONTRIBUTING/") {
         Ok(_) => {
             if verbose {
-                println!("Created CONTRIBUTING directory")
+                println!("[Info] Created CONTRIBUTING directory")
             }
         }
         Err(e) => {
