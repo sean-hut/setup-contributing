@@ -35,6 +35,8 @@ pub fn setup_contributing(arguments: ArgMatches) {
         PREREQUISITE_HEADING,
     );
 
+    space_after_prerequisites(&arguments);
+
     append_section(
         &arguments,
         any_preparation(&arguments),
@@ -163,5 +165,14 @@ fn append_section(arguments: &ArgMatches, any_rules: bool, rules: Vec<Rule>, hea
         for r in &rules {
             append_link(&arguments, r);
         }
+    }
+}
+
+fn space_after_prerequisites(arguments: &ArgMatches) {
+    let mut file: File = open(CONTRIBUTING);
+
+    if any_prerequisites(&arguments) && (any_preparation(&arguments) || any_committing(&arguments))
+    {
+        append(&mut file, "\n");
     }
 }
