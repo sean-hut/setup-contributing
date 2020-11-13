@@ -32,7 +32,17 @@
 
 ## Runtime Dependencies
 
-This project has no runtime dependencies.
+[Git][git] is a runtime dependencies.  Please make sure that you have Git installed.
+
+You will also need to make sure that you have configured Git's `user.name` and `user.email` variables.  These Git configuration variables are used when setting up the contributing directory structure and in the contributing agreement if you choose to include the optional contributing agreement rule.
+
+You can check the value of the configuration variables with these commands.
+
+`git config user.name`
+
+`git config user.email`
+
+[git]: <https://git-scm.com/>
 
 ## Use
 
