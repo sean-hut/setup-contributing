@@ -60,4 +60,8 @@ pub fn setup_contributing(arguments: ArgMatches) {
     copy_gpg_files(&arguments);
 
     write_contributor_agreement(&arguments);
+
+    if arguments.is_present("verbose") {
+        println!("[Success] Setup contributing directory")
+    }
 }
