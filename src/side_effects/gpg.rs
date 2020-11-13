@@ -40,7 +40,11 @@ fn copy_gpg_file(arguments: &ArgMatches, file_type: GPG) {
     };
 
     match copy(source, destination) {
-        Ok(_) => println!("[Info] Added {}", file_output),
+        Ok(_) => {
+            if arguments.is_present("verbose") {
+                println!("[Info] Added {}", file_output);
+            }
+        }
         Err(e) => {
             eprintln!("[Error] Could not copy {}. {}", file_output, e);
             exit(1);
