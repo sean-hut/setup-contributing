@@ -1,3 +1,4 @@
+mod agreement;
 mod rules;
 mod side_effects;
 
@@ -9,6 +10,7 @@ use crate::rules::{
     contributing_prerequisites::{any_prerequisites, prerequisites, PREREQUISITE_HEADING},
 };
 use crate::side_effects::{
+    agreement::write_contributor_agreement,
     checks::{check_directory, check_project_name, gpg_related_flag_checks, require_flag},
     contributing_markdown::{
         append_preamble, append_section, space_after_preparation, space_after_prerequisites,
@@ -56,4 +58,6 @@ pub fn setup_contributing(arguments: ArgMatches) {
     );
 
     copy_gpg_files(&arguments);
+
+    write_contributor_agreement(&arguments);
 }
