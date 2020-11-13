@@ -25,6 +25,21 @@ fn main() {
                 ),
         )
         .arg(
+            Arg::with_name("project-name")
+                .long("project-name")
+                .short("n")
+                .value_name("PROJECT_NAME")
+                .takes_value(true)
+                .multiple(false)
+                .display_order(2)
+                .long_help(
+                    "This option is required if the\n\
+                     --contributor-agreement flag is used.\n\
+                     <PROJECT_NAME> is used in the contributor\n\
+                     agreement.",
+                ),
+        )
+        .arg(
             Arg::with_name("remove")
                 .long("remove")
                 .short("R")
