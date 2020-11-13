@@ -1,9 +1,10 @@
 use std::fs::create_dir_all;
-use std::process::{exit, Command, Output};
+use std::process::exit;
 use std::string::String;
 
 use clap::ArgMatches;
 
+use crate::side_effects::git::{git_string, GitString};
 
 pub fn create_contributing_directory_structure(arguments: &ArgMatches) {
     match create_dir_all(directory_structure(&arguments)) {
@@ -23,42 +24,10 @@ pub fn create_contributing_directory_structure(arguments: &ArgMatches) {
 }
 
 pub fn directory_structure(arguments: &ArgMatches) -> String {
-    let public_key: bool = arguments.is_present("public-key");
-
-    let output: Output = match Command::new("git").arg("config").arg("user.name").output() {
-        Ok(output) => output,
-        Err(e) => {
-            eprintln!(
-                "[Error] Could not get Git's user.name configuration. \
-                 Please make sure Git is installed and that user.name is configured. {}",
-                e
-            );
-            exit(1);
-        }
-    };
-
-    let standard_out: String = match String::from_utf8(output.stdout) {
-        Ok(standard_out) => standard_out,
-        Err(e) => {
-            eprintln!(
-                "[Error] Could not get Git's user.name configuration. \
-                 Please make sure Git is installed and that user.name is configured. {}",
-                e
-            );
-            exit(1);
-        }
-    };
-
-    let name_directory: String = standard_out
-        .to_lowercase()
-        .replace(" ", "-")
-        .trim_end()
-        .to_string();
-
-    if public_key {
+    if arguments.is_present("public-key") {
         format!(
             "CONTRIBUTING/contributors/{}/public-key/current/",
-            name_directory
+            git_string(GitString::NameDirectory)
         )
     } else {
         "CONTRIBUTING/contributors/".to_string()
