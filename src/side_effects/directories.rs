@@ -4,12 +4,11 @@ use std::string::String;
 
 use clap::ArgMatches;
 
-pub fn create_contributing_directory_structure(arguments: &ArgMatches) {
-    let verbose: bool = arguments.is_present("verbose");
 
+pub fn create_contributing_directory_structure(arguments: &ArgMatches) {
     match create_dir_all(directory_structure(&arguments)) {
         Ok(_) => {
-            if verbose {
+            if arguments.is_present("verbose") {
                 println!("[Info] Created contributing directory structure")
             }
         }
