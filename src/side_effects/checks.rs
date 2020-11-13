@@ -46,6 +46,19 @@ pub fn gpg_related_flag_checks(arguments: &ArgMatches) {
     }
 }
 
+pub fn check_project_name(arguments: &ArgMatches) {
+    let contributor_agreement: bool = arguments.is_present("contributor-agreement");
+    let project_name: bool = arguments.is_present("project-name");
+
+    if contributor_agreement && !project_name {
+        eprintln!(
+            "[Error] Use of the --contributor-agreement flag requires \
+             the use of the --project-name option"
+        );
+        exit(1);
+    }
+}
+
 pub fn check_directory(arguments: &ArgMatches) {
     let contributing_directory: &str = "CONTRIBUTING/";
 

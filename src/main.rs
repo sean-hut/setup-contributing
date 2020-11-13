@@ -8,12 +8,47 @@ fn main() {
         .author("Sean Hutchings <seanhut@yandex.com>")
         .about("Setup contributing directory to use contributing-rules")
         .arg(
+            Arg::with_name("public-key")
+                .long("public-key")
+                .short("P")
+                .value_name("PATH")
+                .takes_value(true)
+                .multiple(false)
+                .display_order(1)
+                .long_help(
+                    "Include provide public key rule and copy the\n\
+                     public key and fingerprint in <PATH> into the\n\
+                     contributing directory structure.  <PATH> \n\
+                     should end with a /  This option is required\n\
+                     if the --contributing-agreement flag or the\n\
+                     --sign-commit flag are used.",
+                ),
+        )
+        .arg(
+            Arg::with_name("project-name")
+                .long("project-name")
+                .short("n")
+                .value_name("PROJECT_NAME")
+                .takes_value(true)
+                .multiple(false)
+                .display_order(2)
+                .long_help(
+                    "This option is required if the\n\
+                     --contributor-agreement flag is used.\n\
+                     <PROJECT_NAME> is used in the contributor\n\
+                     agreement.",
+                ),
+        )
+        .arg(
             Arg::with_name("remove")
                 .long("remove")
                 .short("R")
                 .multiple(false)
                 .display_order(1)
-                .help("Remove CONTRIBUTING directory if it exists.  Then the CONTRIBUTING directory is recreated."),
+                .long_help(
+                    "Remove CONTRIBUTING directory if it exists.\n\
+                     Then the CONTRIBUTING directory is recreated.",
+                ),
         )
         .arg(
             Arg::with_name("elliptic-curve")
@@ -22,16 +57,6 @@ fn main() {
                 .multiple(false)
                 .display_order(2)
                 .help("Include elliptic-curve signing key rule"),
-        )
-        .arg(
-            Arg::with_name("public-key")
-                .long("public-key")
-                .short("P")
-                .value_name("PATH")
-                .takes_value(true)
-                .multiple(false)
-                .display_order(1)
-                .help("Include provide public key rule.  Also copy the public key and fingerprint in <PATH> into the contributing directory structure.  <PATH> should end with a /"),
         )
         .arg(
             Arg::with_name("contributor-agreement")
@@ -55,7 +80,10 @@ fn main() {
                 .short("g")
                 .multiple(false)
                 .display_order(6)
-                .help("Include git configuration rule with gpg signing and signoff"),
+                .long_help(
+                    "Include git configuration rule with gpg signing\n\
+                     and signoff",
+                ),
         )
         .group(
             ArgGroup::with_name("git-config")
